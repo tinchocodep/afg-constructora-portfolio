@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFG Constructora — Portfolio de Obras</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --navy-deep: #0C1520;
@@ -24,6 +24,7 @@
   --warm: #C9A97A;
   --warm-light: #E0C9A0;
   --success: #3DA07A;
+  --font-logo: 'Montserrat', -apple-system, sans-serif;
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -105,7 +106,7 @@ body::after {
 }
 
 .nav-logo {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 1.4rem;
   color: var(--pure-white);
@@ -192,7 +193,7 @@ body::after {
 .mobile-menu.open { opacity: 1; visibility: visible; }
 
 .mobile-menu a {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-size: 2.2rem;
   font-weight: 600;
   color: var(--pure-white);
@@ -287,7 +288,7 @@ body::after {
 }
 
 .hero-logo {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(5rem, 14vw, 13rem);
   color: var(--pure-white);
@@ -405,7 +406,7 @@ body::after {
 }
 
 .about-logo-sm {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 3.8rem;
   color: var(--navy);
@@ -440,7 +441,7 @@ body::after {
 }
 
 .stat-number {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(2rem, 3.5vw, 3rem);
   color: var(--navy);
@@ -483,7 +484,7 @@ body::after {
 }
 
 .about-headline {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   color: var(--navy);
@@ -546,7 +547,7 @@ body::after {
 .portfolio-intro .section-tag::before { display: none; }
 
 .portfolio-title {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(3rem, 6vw, 5.5rem);
   color: var(--navy);
@@ -581,6 +582,55 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.project-hero.has-img {
+  background: var(--navy-deep);
+}
+
+.project-hero-bg {
+  position: absolute;
+  inset: -30px;
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  object-fit: cover;
+  filter: blur(40px) brightness(0.55) saturate(1.1);
+  z-index: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.project-hero-img {
+  position: relative;
+  z-index: 1;
+  max-height: 90%;
+  max-width: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  transition: transform 8s var(--ease-out);
+}
+
+.project-hero.has-img:hover .project-hero-img {
+  transform: scale(1.02);
+}
+
+.project-hero.has-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12,21,32,0.2) 0%, transparent 20%, transparent 70%, rgba(12,21,32,0.5) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.project-hero.has-img .project-status,
+.project-hero.has-img .project-num-overlay { z-index: 3; }
+
+.project-hero.has-img .project-num-overlay {
+  color: rgba(255,255,255,0.15);
 }
 
 .project-hero::after {
@@ -626,8 +676,60 @@ body::after {
   background: rgba(22, 32, 48, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  z-index: 2;
+  z-index: 3;
   border-radius: var(--radius-sm);
+}
+
+.project-hero-overlay {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 60%;
+}
+
+.project-hero-overlay-tag {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-hero-overlay-tag::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--accent-light);
+}
+
+.project-hero-overlay-name {
+  font-family: var(--font-logo);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: var(--pure-white);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.project-hero-overlay-address {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 640px) {
+  .project-hero-overlay { max-width: 85%; left: 1rem; bottom: 1rem; }
 }
 
 .project-status.delivered {
@@ -638,7 +740,7 @@ body::after {
   position: absolute;
   bottom: 1.5rem;
   right: 2.5rem;
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(5rem, 12vw, 11rem);
   color: rgba(255,255,255,0.04);
@@ -660,7 +762,7 @@ body::after {
 }
 
 .project-name {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   color: var(--navy);
@@ -717,7 +819,7 @@ body::after {
 .metric:hover { border-color: var(--accent); }
 
 .metric-val {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2.2rem);
   color: var(--navy);
@@ -782,7 +884,7 @@ body::after {
 .progress-fill.animated::after { opacity: 1; }
 
 .progress-pct {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--navy);
@@ -845,6 +947,43 @@ body::after {
   aspect-ratio: 8/3;
 }
 
+.gallery-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.gallery-item:hover .gallery-img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  background: linear-gradient(180deg, transparent 50%, rgba(12,21,32,0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.gallery-item:hover .gallery-caption {
+  opacity: 1;
+}
+
+.gallery-caption span {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--pure-white);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
 .gallery-placeholder {
   position: absolute;
   inset: 0;
@@ -901,7 +1040,7 @@ body::after {
 }
 
 .tech-title {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 1.6rem;
   color: var(--navy);
@@ -1056,7 +1195,7 @@ body::after {
 }
 
 .contact-logo {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 3.8rem;
   color: var(--pure-white);
@@ -1128,7 +1267,7 @@ body::after {
 }
 
 .contact-cta {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: clamp(2.5rem, 4vw, 3.8rem);
   color: var(--pure-white);
@@ -1229,6 +1368,14 @@ body::after {
 
 .lightbox.open .lightbox-content { transform: scale(1); }
 
+.lightbox-img {
+  max-width: 88vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+}
+
 .lightbox-placeholder {
   width: 60vw;
   max-width: 800px;
@@ -1297,7 +1444,7 @@ body::after {
 }
 
 .before-after-title {
-  font-family: var(--font-display);
+  font-family: var(--font-logo);
   font-weight: 700;
   font-size: 1.6rem;
   color: var(--pure-white);
@@ -1591,7 +1738,7 @@ body::after {
 
 <!-- PORTFOLIO INTRO -->
 <section class="portfolio-intro" id="portfolio" aria-label="Portfolio de obras">
-  <div class="section-tag reveal">Nuestras Obras</div>
+  <div class="section-tag reveal">Obras Destacadas</div>
   <h2 class="portfolio-title reveal reveal-delay-1">Portfolio</h2>
   <p class="portfolio-subtitle reveal reveal-delay-2"><strong>4</strong> obras entregadas · <strong>3</strong> en desarrollo · CABA y resto del pais</p>
 </section>
@@ -1657,7 +1804,8 @@ body::after {
 <div class="lightbox" id="lightbox" role="dialog" aria-label="Vista ampliada de imagen">
   <button class="lightbox-close" aria-label="Cerrar">&times;</button>
   <div class="lightbox-content">
-    <div class="lightbox-placeholder">
+    <img class="lightbox-img" id="lightboxImg" alt="" style="display:none">
+    <div class="lightbox-placeholder" id="lightboxPlaceholder">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
     </div>
     <div class="lightbox-label" id="lightboxLabel"></div>
@@ -1670,6 +1818,7 @@ const projects = [
   {
     num: "01", name: "Acevedo", address: "Eduardo Acevedo 67 · CABA",
     status: "Entregada", delivered: true,
+    heroImg: "images/01-acevedo/web/hero.jpg",
     desc: "Edificio residencial de 13 unidades de 3 y 4 ambientes con duplex de categoria. Tres niveles de cochera, un subsuelo y duplex con pileta privada. Diseno contemporaneo con terminaciones premium en cada detalle.",
     metrics: [
       { val: "2.200", label: "M² Totales" },
@@ -1684,7 +1833,16 @@ const projects = [
       plazo: "24 meses de obra — Inicio 2020, entregado en 2022. Todas las unidades vendidas previo a finalizacion.",
     },
     amenities: ["Pileta", "Cocheras"],
-    photos: ["Fachada", "Pileta terraza", "Interior living", "Cocina", "Duplex", "Hall de ingreso", "Vista aerea", "Balcon"],
+    photos: [
+      { src: "images/01-acevedo/web/01-fachada.jpg", label: "Fachada" },
+      { src: "images/01-acevedo/web/02-pileta.jpg", label: "Pileta terraza" },
+      { src: "images/01-acevedo/web/03-hall.jpg", label: "Hall de ingreso" },
+      { src: "images/01-acevedo/web/04-cocina.jpg", label: "Cocina" },
+      { src: "images/01-acevedo/web/05-living.jpg", label: "Living" },
+      { src: "images/01-acevedo/web/06-balcon.jpg", label: "Balcon" },
+      { src: "images/01-acevedo/web/07-dormitorio.jpg", label: "Dormitorio" },
+      { src: "images/01-acevedo/web/08-duplex.jpg", label: "Duplex" },
+    ],
   },
   {
     num: "02", name: "Callao", address: "Callao y Santa Fe · CABA",
@@ -1823,13 +1981,16 @@ const techIcons = {
 const container = document.getElementById('projects-container');
 
 projects.forEach((p, idx) => {
-  const galleryItems = p.photos.map((label, i) => {
+  const galleryItems = p.photos.map((photo, i) => {
     const spanClass = (i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1) ? ' span-2' : '';
-    return `<div class="gallery-item${spanClass}" data-photo="${label}" role="button" tabindex="0" aria-label="Ver foto: ${label}">
-      <div class="gallery-placeholder">
-        ${svgCamera}
-        <span>${label}</span>
-      </div>
+    const isObj = typeof photo === 'object';
+    const label = isObj ? photo.label : photo;
+    const src = isObj ? photo.src : null;
+    const inner = src
+      ? `<img src="${src}" alt="${label}" loading="lazy" class="gallery-img"><div class="gallery-caption"><span>${label}</span></div>`
+      : `<div class="gallery-placeholder">${svgCamera}<span>${label}</span></div>`;
+    return `<div class="gallery-item${spanClass}" data-photo="${label}"${src ? ` data-src="${src}"` : ''} role="button" tabindex="0" aria-label="Ver foto: ${label}">
+      ${inner}
     </div>`;
   }).join('');
 
@@ -1880,15 +2041,25 @@ projects.forEach((p, idx) => {
       </div>
     </div>` : '';
 
+  const heroContent = p.heroImg
+    ? `<img src="${p.heroImg}" alt="" class="project-hero-bg" aria-hidden="true">
+       <img src="${p.heroImg}" alt="${p.name}" class="project-hero-img" loading="lazy">`
+    : `<div class="project-hero-placeholder">${svgCamera}<span>Foto principal — Hero</span></div>`;
+
+  const heroOverlay = p.heroImg ? `
+    <div class="project-hero-overlay">
+      <div class="project-hero-overlay-tag">Obra · N° ${p.num}</div>
+      <div class="project-hero-overlay-name">${p.name}</div>
+      <div class="project-hero-overlay-address">${p.address}</div>
+    </div>` : '';
+
   const html = `
   <section class="project" id="project-${p.num}" aria-label="Proyecto ${p.name}">
-    <div class="project-hero">
+    <div class="project-hero${p.heroImg ? ' has-img' : ''}">
       <div class="project-status${p.delivered ? ' delivered' : ''}">${p.status}</div>
-      <div class="project-hero-placeholder">
-        ${svgCamera}
-        <span>Foto principal — Hero</span>
-      </div>
-      <div class="project-num-overlay">${p.num}</div>
+      ${heroContent}
+      ${heroOverlay}
+      ${!p.heroImg ? `<div class="project-num-overlay">${p.num}</div>` : ''}
     </div>
 
     <div class="project-info">
@@ -2034,9 +2205,22 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 const lightbox = document.getElementById('lightbox');
 const lightboxLabel = document.getElementById('lightboxLabel');
 
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxPlaceholder = document.getElementById('lightboxPlaceholder');
+
 document.querySelectorAll('.gallery-item').forEach(item => {
   const open = () => {
     lightboxLabel.textContent = item.dataset.photo;
+    const src = item.dataset.src;
+    if (src) {
+      lightboxImg.src = src;
+      lightboxImg.alt = item.dataset.photo;
+      lightboxImg.style.display = 'block';
+      lightboxPlaceholder.style.display = 'none';
+    } else {
+      lightboxImg.style.display = 'none';
+      lightboxPlaceholder.style.display = 'flex';
+    }
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
