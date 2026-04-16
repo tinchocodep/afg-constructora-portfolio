@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFG Constructora — Portfolio de Obras</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.ico">
+<meta name="theme-color" content="#0C1520">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -947,6 +950,22 @@ body::after {
   aspect-ratio: 8/3;
 }
 
+.gallery-item.span-big {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: 4/3;
+}
+
+.gallery-grid { grid-auto-flow: dense; }
+
+@media (max-width: 1024px) {
+  .gallery-item.span-big {
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 4/3;
+  }
+}
+
 .gallery-img {
   position: absolute;
   inset: 0;
@@ -960,28 +979,22 @@ body::after {
   transform: scale(1.05);
 }
 
-.gallery-caption {
+.gallery-caption { display: none; }
+
+.gallery-video-badge {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 1rem;
-  background: linear-gradient(180deg, transparent 50%, rgba(12,21,32,0.7) 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 2;
-}
-
-.gallery-item:hover .gallery-caption {
-  opacity: 1;
-}
-
-.gallery-caption span {
-  font-size: 0.65rem;
-  font-weight: 500;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  padding: 0.25rem 0.55rem;
+  background: rgba(12,21,32,0.78);
+  backdrop-filter: blur(8px);
+  border-radius: 3px;
   color: var(--pure-white);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  pointer-events: none;
 }
 
 .gallery-placeholder {
@@ -1515,6 +1528,17 @@ body::after {
 .ba-before svg, .ba-before .ba-side-label { color: var(--silver); }
 .ba-after svg, .ba-after .ba-side-label { color: var(--accent-light); }
 
+.ba-side img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
 /* Divider line */
 .ba-divider {
   position: absolute;
@@ -1598,6 +1622,149 @@ body::after {
 
 @media (max-width: 768px) {
   .before-after-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== AFG REVESTIMIENTOS ===== */
+.rev-section {
+  background: var(--ice);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+}
+
+.rev-card {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  background: var(--pure-white);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  box-shadow: 0 1px 0 var(--cloud);
+}
+
+.rev-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+
+.rev-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+}
+
+.rev-tag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rev-tag::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.rev-title {
+  font-family: var(--font-logo);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.01em;
+}
+
+.rev-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.rev-text {
+  font-size: 0.95rem;
+  color: var(--slate);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  max-width: 480px;
+  font-weight: 300;
+}
+
+.rev-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.4rem;
+  border: 1px solid var(--navy);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.rev-card:hover .rev-cta {
+  background: var(--navy);
+  color: var(--pure-white);
+}
+
+.rev-cta svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.rev-card:hover .rev-cta svg {
+  transform: translate(2px, -2px);
+}
+
+.rev-card-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 320px;
+  margin-left: auto;
+}
+
+.rev-card-right img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.rev-card:hover .rev-card-right img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .rev-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  .rev-tag { justify-content: center; }
+  .rev-tag::before { display: none; }
+  .rev-text { margin-left: auto; margin-right: auto; }
+  .rev-card-right { margin: 0 auto; max-width: 240px; }
 }
 
 /* ===== RESPONSIVE ===== */
@@ -1690,7 +1857,7 @@ body::after {
     <div class="hero-line" aria-hidden="true"></div>
     <div class="hero-tagline">Portfolio de Obras — Argentina 2026</div>
   </div>
-  <a href="#about" class="hero-scroll" aria-label="Ir a la siguiente seccion">
+  <a href="#about" class="hero-scroll" aria-label="Ir a la siguiente sección">
     <span>Scroll</span>
     <div class="hero-scroll-line" aria-hidden="true"></div>
   </a>
@@ -1718,18 +1885,18 @@ body::after {
       </div>
       <div class="stat-item reveal reveal-delay-4">
         <div class="stat-number" data-count="17" data-suffix="K" data-prefix="+">0</div>
-        <div class="stat-label">M² En Construccion</div>
+        <div class="stat-label">M² En Construcción</div>
       </div>
     </div>
   </div>
   <div class="about-right">
     <div class="section-tag reveal">Sobre Nosotros</div>
-    <h2 class="about-headline reveal reveal-delay-1">Construimos con<br>la misma exigencia<br>con la que elegiriamos<br>vivir.</h2>
-    <p class="about-text reveal reveal-delay-2">AFG Constructora es una empresa dedicada al desarrollo de proyectos residenciales y comerciales en la Ciudad de Buenos Aires y alrededores. Desde nuestros inicios, nos enfocamos en crear espacios que combinan diseno contemporaneo, materialidad de calidad y atencion al detalle.</p>
-    <p class="about-text reveal reveal-delay-3">Operamos tanto en CABA como en provincia de Buenos Aires y el interior del pais, llevando nuestro estandar constructivo a cada proyecto.</p>
+    <h2 class="about-headline reveal reveal-delay-1">Construimos con<br>la misma exigencia<br>con la que elegiríamos<br>vivir.</h2>
+    <p class="about-text reveal reveal-delay-2">AFG Constructora es una empresa dedicada al desarrollo de proyectos residenciales y comerciales en la Ciudad de Buenos Aires y alrededores. Desde nuestros inicios, nos enfocamos en crear espacios que combinan diseño contemporáneo, materialidad de calidad y atención al detalle.</p>
+    <p class="about-text reveal reveal-delay-3">Operamos tanto en CABA como en provincia de Buenos Aires y el interior del país, llevando nuestro estándar constructivo a cada proyecto.</p>
     <div class="values-row reveal reveal-delay-4">
       <div class="value-item"><span>Calidad</span></div>
-      <div class="value-item"><span>Diseno</span></div>
+      <div class="value-item"><span>Diseño</span></div>
       <div class="value-item"><span>Transparencia</span></div>
       <div class="value-item"><span>Cumplimiento</span></div>
     </div>
@@ -1740,11 +1907,29 @@ body::after {
 <section class="portfolio-intro" id="portfolio" aria-label="Portfolio de obras">
   <div class="section-tag reveal">Obras Destacadas</div>
   <h2 class="portfolio-title reveal reveal-delay-1">Portfolio</h2>
-  <p class="portfolio-subtitle reveal reveal-delay-2"><strong>4</strong> obras entregadas · <strong>3</strong> en desarrollo · CABA y resto del pais</p>
+  <p class="portfolio-subtitle reveal reveal-delay-2"><strong>4</strong> obras entregadas · <strong>3</strong> en desarrollo · CABA y resto del país</p>
 </section>
 
 <!-- PROJECTS (generated by JS) -->
 <div id="projects-container"></div>
+
+<!-- AFG REVESTIMIENTOS -->
+<section class="rev-section" aria-label="AFG Revestimientos">
+  <a class="rev-card reveal" href="https://www.afgrevestimiento.com" target="_blank" rel="noopener">
+    <div class="rev-card-left">
+      <div class="rev-tag">En AFG</div>
+      <h2 class="rev-title">También hacemos<br><em>revestimientos.</em></h2>
+      <p class="rev-text">Fabricación y colocación de revestimientos arquitectónicos para fachadas e interiores.</p>
+      <div class="rev-cta">
+        Visitar AFG Revestimientos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </div>
+    </div>
+    <div class="rev-card-right">
+      <img src="images/afg-revestimientos-logo.jpg" alt="AFG Revestimientos" loading="lazy">
+    </div>
+  </a>
+</section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact" aria-label="Contacto">
@@ -1757,7 +1942,7 @@ body::after {
       <div class="contact-item reveal reveal-delay-1">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         <div>
-          <div class="contact-item-label">Telefono</div>
+          <div class="contact-item-label">Teléfono</div>
           <div class="contact-item-value">+54 9 11 2504-3008</div>
         </div>
       </div>
@@ -1787,7 +1972,7 @@ body::after {
   <div class="contact-right">
     <div class="contact-cta reveal">Construyamos<br><em>juntos.</em></div>
     <div class="contact-cta-line reveal reveal-delay-1"></div>
-    <p class="contact-cta-text reveal reveal-delay-2">Contactanos para conocer mas sobre nuestros proyectos en desarrollo y oportunidades de inversion.</p>
+    <p class="contact-cta-text reveal reveal-delay-2">Contactaños para conocer mas sobre nuestros proyectos en desarrollo y oportunidades de inversión.</p>
   </div>
 </section>
 
@@ -1801,10 +1986,11 @@ body::after {
 </footer>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-label="Vista ampliada de imagen">
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Vista ampliada">
   <button class="lightbox-close" aria-label="Cerrar">&times;</button>
   <div class="lightbox-content">
     <img class="lightbox-img" id="lightboxImg" alt="" style="display:none">
+    <video class="lightbox-img" id="lightboxVideo" controls autoplay loop playsinline style="display:none"></video>
     <div class="lightbox-placeholder" id="lightboxPlaceholder">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
     </div>
@@ -1819,7 +2005,7 @@ const projects = [
     num: "01", name: "Acevedo", address: "Eduardo Acevedo 67 · CABA",
     status: "Entregada", delivered: true,
     heroImg: "images/01-acevedo/web/hero.jpg",
-    desc: "Edificio residencial de 13 unidades de 3 y 4 ambientes con duplex de categoria. Tres niveles de cochera, un subsuelo y duplex con pileta privada. Diseno contemporaneo con terminaciones premium en cada detalle.",
+    desc: "Edificio residencial de 13 unidades de 3 y 4 ambientes con dúplex de categoría. Tres niveles de cochera y dúplex con terraza y pileta privada. Diseño contemporáneo con terminaciones premium en cada detalle.",
     metrics: [
       { val: "2.200", label: "M² Totales" },
       { val: "13", label: "Unidades" },
@@ -1827,31 +2013,28 @@ const projects = [
       { val: "2022", label: "Entrega" },
     ],
     tech: {
-      estructura: "Hormigon armado H30. Estructura antisismica con fundaciones de pilotes. Losas macizas en todos los niveles.",
-      materiales: "Carpinteria DVH aluminio anodizado. Porcelanato premium 60x60. Mesadas de cuarzo. Griferia monocomando. Placares interiores.",
-      instalaciones: "Termotanque individual por unidad. Tendido electrico bajo tubo. Portero visor digital. Ascensor OTIS. Pre-instalacion AA split.",
-      plazo: "24 meses de obra — Inicio 2020, entregado en 2022. Todas las unidades vendidas previo a finalizacion.",
+      estructura: "Hormigón armado tradicional. ",
+      materiales: "Porcelanatos 60x120 de primera calidad. Carpintería DVH aluminio anodizado. Mesadas de cuarzo. Grifería monocomando. Interiores de placares. Muebles de cocina de primera calidad. Algunas unidades de 3 y 4 ambientes con lavadero.",
+      instalaciones: "Termotanque de alta recuperación general. Portero visor digital. Ascensor de primera calidad. Preinstalación AA split. Palieres privados. Montacoche. Tres niveles de cochera.",
+      plazo: "24 meses de obra — Inicio 2020, entregado en 2022. Todas las unidades vendidas previo a finalización.",
     },
     amenities: ["Pileta", "Cocheras"],
     photos: [
       { src: "images/01-acevedo/web/01-fachada.jpg", label: "Fachada" },
-      { src: "images/01-acevedo/web/02-pileta.jpg", label: "Pileta terraza" },
+      { src: "images/01-acevedo/web/02-pileta.jpg", label: "Pileta del dúplex" },
       { src: "images/01-acevedo/web/03-hall.jpg", label: "Hall de ingreso" },
       { src: "images/01-acevedo/web/04-cocina.jpg", label: "Cocina" },
       { src: "images/01-acevedo/web/05-living.jpg", label: "Living" },
-      { src: "images/01-acevedo/web/06-balcon.jpg", label: "Balcon" },
-      { src: "images/01-acevedo/web/07-dormitorio.jpg", label: "Dormitorio" },
-      { src: "images/01-acevedo/web/08-duplex.jpg", label: "Duplex" },
+      { src: "images/01-acevedo/web/06-balcon.jpg", label: "Balcón" },
+      { src: "images/01-acevedo/web/07-habitación.jpg", label: "Habitación" },
+      { src: "images/01-acevedo/web/08-duplex.jpg", label: "Dúplex con pileta y terraza" },
     ],
   },
   {
     num: "02", name: "Callao", address: "Callao y Santa Fe · CABA",
-    status: "Entregada", delivered: true, reforma: true,
-    beforeAfter: [
-      { caption: "Fachada principal", before: "Estado original — deterioro visible", after: "Fachada restaurada y puesta en valor" },
-      { caption: "Hall de entrada", before: "Oficinas en desuso", after: "Viviendas de categoria" },
-    ],
-    desc: "Reforma integral de edificio de epoca en una de las esquinas mas emblematicas de Buenos Aires. Reconversion de oficinas a vivienda preservando el valor patrimonial con estandares constructivos actuales.",
+    status: "Entregada", delivered: true,
+    heroImg: "images/02-callao/web/hero.jpg",
+    desc: "Reforma integral en una de las esquinas más emblemáticas de Buenos Aires. Reconversión de viviendas a oficinas preservando el valor patrimonial.",
     metrics: [
       { val: "850", label: "M² Totales" },
       { val: "Reforma", label: "Tipo de Obra" },
@@ -1859,41 +2042,69 @@ const projects = [
       { val: "2021", label: "Entrega" },
     ],
     tech: {
-      estructura: "Refuerzo estructural sobre mamposteria existente. Consolidacion de fundaciones originales. Apuntalamiento progresivo.",
-      materiales: "Restauracion de molduras originales y herreria de epoca. Pisos de roble europeo. Carpinteria de madera con DVH.",
-      instalaciones: "Instalacion electrica y sanitaria completamente nueva. Aire acondicionado centralizado VRV. Ascensor nuevo en hueco existente.",
-      plazo: "18 meses de obra — Inicio 2019, entregado en 2021. Supervision de patrimonio historico.",
+      estructura: "Refuerzo estructural sobre mampostería existente. Consolidación de fundaciones originales. Apuntalamiento progresivo.",
+      materiales: "Restauración de molduras originales y herrería de época. Pisos de roble europeo. Carpintería de madera con DVH.",
+      instalaciones: "Instalación eléctrica y sanitaria completamente nueva. Aire acondicionado centralizado VRV.",
+      plazo: "18 meses de obra — Inicio 2019, entregado en 2021. Supervisión de patrimonio histórico.",
     },
     amenities: [],
-    photos: ["Fachada restaurada", "Balcon original", "Interior restaurado", "Molduras", "Planta baja", "Hall de entrada", "Detalle herreria", "Vista esquina"],
+    photos: [
+      { src: "images/02-callao/web/01-pasillo-molduras.jpg", label: "Pasillo molduras" },
+      { src: "images/02-callao/web/02-pasillo-arana.jpg", label: "Pasillo araña" },
+      { src: "images/02-callao/web/03-escalera.jpg", label: "Escalera balaustrada" },
+      { src: "images/02-callao/web/04-sala.jpg", label: "Sala" },
+    ],
   },
   {
     num: "03", name: "Juan B. Justo", address: "Av. Juan B. Justo 4098 · CABA",
     status: "Entregada", delivered: true,
-    desc: "Edificio de 50 unidades entre monoambientes y dos ambientes. Terraza con espacio comun y SUM. Local comercial en planta baja. Diseno funcional pensado para inversion y vivienda joven.",
+    heroImg: "images/03-juan-b-justo/web/hero.jpg",
+    desc: "Edificio de 50 unidades entre monoambientes y dos ambientes. Terraza con espacio comun y SUM. Local comercial en planta baja. Diseño funcional pensado para inversión y vivienda joven.",
     metrics: [
       { val: "2.500", label: "M² Totales" },
       { val: "50", label: "Unidades" },
-      { val: "Mono / 2 Amb", label: "Tipologias" },
+      { val: "Mono / 2 Amb", label: "Tipologías" },
       { val: "2025", label: "Entrega" },
     ],
     tech: {
-      estructura: "Hormigon armado H30. Losas nervuradas. Estructura aporticada convencional. Fundaciones directas con zapatas corridas.",
-      materiales: "Porcelanato pulido 60x60. Carpinteria de aluminio DVH. Bajo mesada y muebles de cocina incluidos. Banos equipados.",
-      instalaciones: "Ascensor. Grupo electrogeno. Sistema contra incendios completo. Medidores individuales de gas, agua y electricidad.",
-      plazo: "30 meses de obra — Inicio 2022, entregado en 2025. 95% de unidades vendidas en pozo.",
+      estructura: "Hormigón armado tradicional. La fachada se reacondicionó completamente, generando balcones decorativos para los equipos exteriores de aire acondicionado en estructuras livianas.",
+      materiales: "Porcelanatos simil madera 20x120. Carpintería de aluminio color negro. Artefactos sanitarios de primera calidad. Griferías Peirano. Espejos en baños. Muebles de cocina incluidos.",
+      instalaciones: "Ascensor. Sistema contra incendios completo. Medidores individuales de agua y electricidad.",
+      plazo: "30 meses de obra — Inicio 2023, entregado en 2025. 95% de unidades vendidas en pozo.",
     },
     amenities: ["SUM", "Comercial"],
-    photos: ["Fachada completa", "Terraza SUM", "Monoambiente tipo", "2 ambientes tipo", "Local comercial", "Hall ingreso", "Balcones", "Vista aerea"],
+    photos: [
+      { src: "images/03-juan-b-justo/web/01-fachada-frontal.jpg", label: "Fachada frontal" },
+      { src: "images/03-juan-b-justo/web/02-balcones-detalle.jpg", label: "Balcones detalle" },
+      { src: "images/03-juan-b-justo/web/03-balcones-cielo.jpg", label: "Balcones" },
+      { src: "images/03-juan-b-justo/web/05-terraza-horizonte.jpg", label: "Terraza" },
+      { src: "images/03-juan-b-justo/web/06-cocinetta-marmol.jpg", label: "Cocina" },
+      { src: "images/03-juan-b-justo/web/07-bano-toilet.jpg", label: "Baño" },
+      { src: "images/03-juan-b-justo/web/08-bano-ducha.jpg", label: "Baño ducha" },
+      { src: "images/03-juan-b-justo/web/08-fachada-lateral.jpg", label: "Detalle" },
+    ],
   },
   {
-    num: "04", name: "Peron", address: "Peron 1281 · CABA",
+    num: "04", name: "Perón", address: "Perón 1281 · CABA",
     status: "Entregada", delivered: true, reforma: true,
+    heroImg: "images/04-peron/web/hero.jpg",
     beforeAfter: [
-      { caption: "Fachada sobre Peron", before: "Edificio original sin uso", after: "Hotel boutique renovado" },
-      { caption: "Lobby y acceso", before: "Planta baja abandonada", after: "Lobby de hotel con diseno contemporaneo" },
+      {
+        caption: "Fachada delantera sobre Perón",
+        beforeSrc: "images/04-peron/web/ba-frontal-antes-v2.jpg",
+        afterSrc: "images/04-peron/web/ba-frontal-despues.jpg",
+        before: "Edificio original",
+        after: "Hotel boutique renovado"
+      },
+      {
+        caption: "Fachada trasera y patio interior",
+        beforeSrc: "images/04-peron/web/ba-trasera-antes.jpg",
+        afterSrc: "images/04-peron/web/ba-trasera-despues.jpg",
+        before: "Estado original deteriorado",
+        after: "Patio interior reformado"
+      },
     ],
-    desc: "Reforma de +7.700 m² reconvertida en 165 unidades funcionales para hotel. Sala de juegos, galeria de arte, local comercial, coworking, pileta climatizada, gimnasio y rooftop.",
+    desc: "Reforma de +7.700 m² reconvertida en 165 unidades funcionales para hotel. Sala de juegos, galería de arte, local comercial, coworking, pileta climatizada, gimnasio y rooftop.",
     metrics: [
       { val: "+7.700", label: "M² Totales" },
       { val: "165", label: "Unidades Hotel" },
@@ -1901,18 +2112,27 @@ const projects = [
       { val: "2025", label: "Entrega" },
     ],
     tech: {
-      estructura: "Refuerzo estructural integral con perfiles metalicos. Recalce de fundaciones existentes. Nuevas losas en sectores de ampliacion.",
-      materiales: "Revestimientos acusticos en habitaciones. Porcelanato gran formato. Iluminacion LED centralizada. Mobiliario a medida.",
-      instalaciones: "Climatizacion central con fan-coils individuales. Caldera central ACS. Sistema BMS. CCTV y control de acceso biometrico.",
-      plazo: "36 meses de obra — Inicio 2022, entregado en 2025. Operacion hotelera activa desde entrega.",
+      estructura: "Refuerzo estructural integral con perfiles metalicos. Recalce de fundaciones existentes. Nuevas losas en sectores de ampliación. Se agrego una parada mas para los ascensores.",
+      materiales: "Diferentes tipos de revestimientos: pisos vinílicos, microcemento en baños, porcelanatos en sector de pileta y vestuarios, piso de goma en gimnasio, revestimientos cementicios en exterior y pisos de epoxi en distintos sectores. Iluminación LED centralizada. Mobiliario a medida.",
+      instalaciones: "Preinstalación de aire acondicionado en cada unidad de manera individual. Agua caliente central. Sistema BMS. CCTV y control de acceso biométrico.",
+      plazo: "36 meses de obra — Inicio 2022, entregado en 2025. Operación hotelera activa desde entrega.",
     },
     amenities: ["Pileta", "Gimnasio", "Microcine", "Comercial"],
-    photos: ["Fachada hotel", "Lobby", "Habitacion tipo", "Pileta climatizada", "Gimnasio", "Rooftop", "Sala de juegos", "Coworking"],
+    photos: [
+      { src: "images/04-peron/web/01-fachada.jpg", label: "Fachada hotel" },
+      { src: "images/04-peron/web/10-fachada-noche.jpg", label: "Fachada de noche" },
+      { src: "images/04-peron/web/02-lobby.jpg", label: "Lobby" },
+      { src: "images/04-peron/web/03-pileta.jpg", label: "Pileta climatizada" },
+      { src: "images/04-peron/web/hero.mp4", label: "Recorrido" },
+      { src: "images/04-peron/web/04-sala-estrellas.jpg", label: "Sala estrellas" },
+      { src: "images/04-peron/web/07-columnas.jpg", label: "Subsuelos" },
+    ],
   },
   {
-    num: "05", name: "Tucuman", address: "Tucuman 780 · CABA",
+    num: "05", name: "Tucumán", address: "Tucumán 780 · CABA",
     status: "En Obra", delivered: false, progress: 65,
-    desc: "Desarrollo mixto de +5.000 m² con +90 departamentos, oficinas y local gastronomico en PB. Amenities de primer nivel: microcine, salon de lectura, SUM, pileta en piso 10 y dos terrazas.",
+    heroImg: "images/05-tucuman/web/hero.jpg",
+    desc: "Desarrollo mixto de +5.000 m² con +90 departamentos, oficinas y local gastronómico en PB. Amenities de primer nivel: microcine, salón de lectura, SUM, pileta en piso 10 y dos terrazas.",
     metrics: [
       { val: "+5.000", label: "M² Edificados" },
       { val: "+90", label: "Departamentos" },
@@ -1920,18 +2140,22 @@ const projects = [
       { val: "65%", label: "Avance" },
     ],
     tech: {
-      estructura: "Hormigon armado H30. Losas postensadas. Pantallas de contencion para dos niveles de subsuelo. Nucleo central de circulacion.",
-      materiales: "Fachada ventilada con paneles composite. Carpinteria de aluminio con RPT. Porcelanato rectificado. Terminaciones premium.",
-      instalaciones: "Ascensores de alta velocidad x2. Grupo electrogeno full backup. Cisterna y bombas presurizadoras. Rociadores en todos los niveles.",
+      estructura: "Hormigón armado tradicional.",
+      materiales: "Porcelanatos símil madera 20x120. Carpintería de aluminio color negro. Artefactos sanitarios de primera calidad. Griferías Peirano. Espejos en baños. Muebles de cocina incluidos.",
+      instalaciones: "Ascensor. Sistema contra incendios completo. Medidores individuales de agua y electricidad.",
       plazo: "Inicio: 2023 — Plazo estimado: 36 meses. Avance actual: 65%. Entrega prevista: Q4 2026.",
     },
     amenities: ["Pileta", "Microcine", "Lectura", "SUM", "Cocheras"],
-    photos: ["Avance fachada", "Estructura pisos", "Render exterior", "Render amenities", "Excavacion", "Armado losas", "Equipo en obra", "Render interior"],
+    photos: [
+      { src: "images/05-tucuman/web/01-vista-altura.jpg", label: "Vista desde altura" },
+      { src: "images/05-tucuman/web/02-escalera.jpg", label: "Escalera entre paredes" },
+    ],
   },
   {
     num: "06", name: "Suipacha", address: "Suipacha y Paraguay · CABA",
     status: "En Obra", delivered: false, progress: 5,
-    desc: "Proyecto de 13 pisos con 66 departamentos, 2 locales comerciales y amenities completos: terraza, pileta, gimnasio y sala zoom. Ubicacion premium en pleno corazon de Buenos Aires.",
+    heroImg: "images/06-suipacha/web/hero.jpg",
+    desc: "Proyecto de 13 pisos con 66 departamentos, 2 locales comerciales y amenities completos: terraza, pileta, gimnasio y SUM. Ubicación premium en pleno corazón de Buenos Aires.",
     metrics: [
       { val: "4.830", label: "M² Construibles" },
       { val: "66 + 2", label: "Dptos + Locales" },
@@ -1939,18 +2163,24 @@ const projects = [
       { val: "5%", label: "Avance" },
     ],
     tech: {
-      estructura: "Hormigon armado. Pilotes de gran diametro. Estructura calculada para 13 pisos + terraza accesible con sobrecarga.",
-      materiales: "Fachada con balcones curvos en hormigon visto. Vidrio templado en barandas. Lobby con doble altura. Terminaciones premium.",
-      instalaciones: "Pre-instalacion AA split por unidad. Ascensores x2. CCTV perimetral. Sala de maquinas en subsuelo.",
-      plazo: "Inicio: 2025 — Etapa actual: demolicion (5%). Plazo estimado: 30 meses. Entrega prevista: 2028.",
+      estructura: "Hormigón armado. Pilotes de gran diámetro. Estructura calculada para 13 pisos + terraza accesible con sobrecarga.",
+      materiales: "Fachada con balcones curvos en hormigón visto. Vidrio templado en barandas. Lobby con doble altura. Terminaciones premium.",
+      instalaciones: "Pre-instalación AA split por unidad. Ascensores x2. CCTV perimetral. Sala de máquinas en subsuelo.",
+      plazo: "Inicio: 2025 — Etapa actual: demolición (5%). Plazo estimado: 30 meses. Entrega prevista: 2028.",
     },
     amenities: ["Pileta", "Gimnasio", "SUM"],
-    photos: ["Render fachada", "Render terraza", "Render interior", "Render gimnasio", "Demolicion actual", "Terreno", "Plano planta tipo", "Render lobby"],
+    photos: [
+      { src: "images/06-suipacha/web/01-fachada-frontal.jpg", label: "Fachada actual" },
+      { src: "images/06-suipacha/web/02-fachada-lateral.jpg", label: "Fachada lateral" },
+      { src: "images/06-suipacha/web/03-interior-previo.jpg", label: "Interior pre-obra" },
+      { src: "images/06-suipacha/web/04-terraza-previa.jpg", label: "Terraza actual" },
+    ],
   },
   {
     num: "07", name: "Godoy Cruz", address: "Godoy Cruz 2936 · CABA",
     status: "En Obra", delivered: false, progress: 10,
-    desc: "Desarrollo de gran escala en Palermo. Piscina en planta baja, gimnasio y solarium. 17 pisos sobre PB con 3 niveles de subsuelo con cocheras. Amenities premium para un estandar de vida superior.",
+    heroImg: "images/07-godoy-cruz/web/hero.jpg",
+    desc: "Desarrollo de gran escala en Palermo. Piscina en planta baja, gimnasio y solarium. 17 pisos sobre PB con 3 niveles de subsuelo con cocheras. Amenities premium para un estándar de vida superior.",
     metrics: [
       { val: "7.320", label: "M² Totales" },
       { val: "50", label: "Unidades" },
@@ -1958,13 +2188,22 @@ const projects = [
       { val: "10%", label: "Avance" },
     ],
     tech: {
-      estructura: "Hormigon armado H30/H40. Nucleo central rigidizador. Losas postensadas. Muros pantalla para 3 subsuelos.",
-      materiales: "Fachada de vidrio con parasoles metalicos. Deck de madera en areas comunes. Porcelanato italiano. Marmol en accesos.",
-      instalaciones: "Ascensores alta velocidad x3. Climatizacion VRV en areas comunes. Bombeo para 17 pisos. CCTV integral. Grupo electrogeno total.",
-      plazo: "Inicio: 2025 — Excavacion y fundaciones (10%). Plazo estimado: 42 meses. Entrega prevista: 2029.",
+      estructura: "Hormigón armado. Pilotes de gran diámetro. Estructura calculada para 13 pisos + terraza accesible con sobrecarga.",
+      materiales: "Fachada con balcones curvos en hormigón visto. Vidrio templado en barandas. Lobby con doble altura. Terminaciones premium.",
+      instalaciones: "Pre-instalación AA split por unidad. Ascensores x2. CCTV perimetral. Sala de máquinas en subsuelo.",
+      plazo: "Inicio: 2025 — Excavación y fundaciones (10%). Plazo estimado: 42 meses. Entrega prevista: 2029.",
     },
     amenities: ["Pileta", "Gimnasio", "Cocheras"],
-    photos: ["Render fachada", "Render pileta", "Render living", "Excavacion", "Fundaciones", "Equipo en obra", "Plano corte", "Vista terreno"],
+    photos: [
+      { src: "images/07-godoy-cruz/web/01-excavacion-urbana.jpg", label: "Excavacion" },
+      { src: "images/07-godoy-cruz/web/02-operario-afg.jpg", label: "Equipo en obra" },
+      { src: "images/07-godoy-cruz/web/03-equipo-afg.jpg", label: "Equipo AFG" },
+      { src: "images/07-godoy-cruz/web/04-equipo-amarillo.jpg", label: "Colado" },
+      { src: "images/07-godoy-cruz/web/05-maquinaria.jpg", label: "Maquinaria" },
+      { src: "images/07-godoy-cruz/web/06-colado-accion.jpg", label: "Bomba hormigón" },
+      { src: "images/07-godoy-cruz/web/07-pozo-excavacion.jpg", label: "Pozo" },
+      { src: "images/07-godoy-cruz/web/08-operarios.jpg", label: "Operarios AFG" },
+    ],
   },
 ];
 
@@ -1982,14 +2221,22 @@ const container = document.getElementById('projects-container');
 
 projects.forEach((p, idx) => {
   const galleryItems = p.photos.map((photo, i) => {
-    const spanClass = (i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1) ? ' span-2' : '';
     const isObj = typeof photo === 'object';
     const label = isObj ? photo.label : photo;
     const src = isObj ? photo.src : null;
-    const inner = src
-      ? `<img src="${src}" alt="${label}" loading="lazy" class="gallery-img"><div class="gallery-caption"><span>${label}</span></div>`
-      : `<div class="gallery-placeholder">${svgCamera}<span>${label}</span></div>`;
-    return `<div class="gallery-item${spanClass}" data-photo="${label}"${src ? ` data-src="${src}"` : ''} role="button" tabindex="0" aria-label="Ver foto: ${label}">
+    const isVideo = src && /\.(mp4|webm|mov)$/i.test(src);
+    const spanClass = isVideo
+      ? ' span-big'
+      : ((i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1) ? ' span-2' : '');
+    let inner;
+    if (isVideo) {
+      inner = `<video src="${src}" class="gallery-img" autoplay muted loop playsinline></video><div class="gallery-video-badge">VIDEO</div>`;
+    } else if (src) {
+      inner = `<img src="${src}" alt="${label}" loading="lazy" class="gallery-img">`;
+    } else {
+      inner = `<div class="gallery-placeholder">${svgCamera}<span>${label}</span></div>`;
+    }
+    return `<div class="gallery-item${spanClass}" data-photo="${label}"${src ? ` data-src="${src}"` : ''}${isVideo ? ' data-type="video"' : ''} role="button" tabindex="0" aria-label="Ver: ${label}">
       ${inner}
     </div>`;
   }).join('');
@@ -2018,30 +2265,35 @@ projects.forEach((p, idx) => {
         <div class="before-after-badge">Reforma integral</div>
       </div>
       <div class="before-after-grid">
-        ${p.beforeAfter.map((ba, i) => `
-        <div class="reveal reveal-delay-${i+1}">
-          <div class="ba-slider" data-ba-slider>
-            <div class="ba-tag ba-tag-before">Antes</div>
-            <div class="ba-tag ba-tag-after">Despues</div>
-            <div class="ba-side ba-before">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <span class="ba-side-label">${ba.before}</span>
+        ${p.beforeAfter.map((ba, i) => {
+          const beforeContent = ba.beforeSrc
+            ? `<img src="${ba.beforeSrc}" alt="${ba.before}" loading="lazy">`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg><span class="ba-side-label">${ba.before}</span>`;
+          const afterContent = ba.afterSrc
+            ? `<img src="${ba.afterSrc}" alt="${ba.after}" loading="lazy">`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg><span class="ba-side-label">${ba.after}</span>`;
+          return `
+          <div class="reveal reveal-delay-${i+1}">
+            <div class="ba-slider${ba.beforeSrc ? ' has-img' : ''}" data-ba-slider>
+              <div class="ba-tag ba-tag-before">Antes</div>
+              <div class="ba-tag ba-tag-after">Despues</div>
+              <div class="ba-side ba-before">${beforeContent}</div>
+              <div class="ba-side ba-after">${afterContent}</div>
+              <div class="ba-divider"></div>
+              <div class="ba-handle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 6l-4 6 4 6M16 6l4 6-4 6"/></svg>
+              </div>
             </div>
-            <div class="ba-side ba-after">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <span class="ba-side-label">${ba.after}</span>
-            </div>
-            <div class="ba-divider"></div>
-            <div class="ba-handle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 6l-4 6 4 6M16 6l4 6-4 6"/></svg>
-            </div>
-          </div>
-          <div class="ba-caption">${ba.caption}</div>
-        </div>`).join('')}
+            <div class="ba-caption">${ba.caption}</div>
+          </div>`;
+        }).join('')}
       </div>
     </div>` : '';
 
-  const heroContent = p.heroImg
+  const heroContent = p.heroVideo
+    ? `<img src="${p.heroImg}" alt="" class="project-hero-bg" aria-hidden="true">
+       <video src="${p.heroVideo}" class="project-hero-img" autoplay muted loop playsinline poster="${p.heroImg}"></video>`
+    : p.heroImg
     ? `<img src="${p.heroImg}" alt="" class="project-hero-bg" aria-hidden="true">
        <img src="${p.heroImg}" alt="${p.name}" class="project-hero-img" loading="lazy">`
     : `<div class="project-hero-placeholder">${svgCamera}<span>Foto principal — Hero</span></div>`;
@@ -2084,7 +2336,7 @@ projects.forEach((p, idx) => {
 
     <div class="project-gallery">
       <div class="gallery-header">
-        <span class="gallery-title">Galeria</span>
+        <span class="gallery-title">Galería</span>
         <span class="gallery-count">${p.photos.length} fotos</span>
       </div>
       <div class="gallery-grid">
@@ -2206,19 +2458,33 @@ const lightbox = document.getElementById('lightbox');
 const lightboxLabel = document.getElementById('lightboxLabel');
 
 const lightboxImg = document.getElementById('lightboxImg');
+const lightboxVideo = document.getElementById('lightboxVideo');
 const lightboxPlaceholder = document.getElementById('lightboxPlaceholder');
+
+const closeLightbox = () => {
+  lightbox.classList.remove('open');
+  lightboxVideo.pause();
+  lightboxVideo.src = '';
+  document.body.style.overflow = '';
+};
 
 document.querySelectorAll('.gallery-item').forEach(item => {
   const open = () => {
-    lightboxLabel.textContent = item.dataset.photo;
+    lightboxLabel.textContent = '';
     const src = item.dataset.src;
-    if (src) {
+    const isVideo = item.dataset.type === 'video';
+    lightboxImg.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    lightboxPlaceholder.style.display = 'none';
+    if (isVideo && src) {
+      lightboxVideo.src = src;
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.play();
+    } else if (src) {
       lightboxImg.src = src;
       lightboxImg.alt = item.dataset.photo;
       lightboxImg.style.display = 'block';
-      lightboxPlaceholder.style.display = 'none';
     } else {
-      lightboxImg.style.display = 'none';
       lightboxPlaceholder.style.display = 'flex';
     }
     lightbox.classList.add('open');
@@ -2229,17 +2495,11 @@ document.querySelectorAll('.gallery-item').forEach(item => {
 });
 
 lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox || e.target.closest('.lightbox-close')) {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  if (e.target === lightbox || e.target.closest('.lightbox-close')) closeLightbox();
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && lightbox.classList.contains('open')) {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
 });
 
 // ===== BEFORE/AFTER SLIDERS =====
