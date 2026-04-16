@@ -2148,7 +2148,10 @@ const projects = [
     amenities: ["Pileta", "Microcine", "Lectura", "SUM", "Cocheras"],
     photos: [
       { src: "images/05-tucuman/web/01-vista-altura.jpg", label: "Vista desde altura" },
+      { src: "images/05-tucuman/web/01-clip.mp4", label: "Recorrido obra" },
       { src: "images/05-tucuman/web/02-escalera.jpg", label: "Escalera entre paredes" },
+      { src: "images/05-tucuman/web/02-clip.mp4", label: "Avance obra" },
+      { src: "images/05-tucuman/web/03-clip.mp4", label: "Vista obra" },
     ],
   },
   {
@@ -2220,12 +2223,16 @@ const techIcons = {
 const container = document.getElementById('projects-container');
 
 projects.forEach((p, idx) => {
+  const firstVideoIdx = p.photos.findIndex(ph => {
+    const s = typeof ph === 'object' ? ph.src : null;
+    return s && /\.(mp4|webm|mov)$/i.test(s);
+  });
   const galleryItems = p.photos.map((photo, i) => {
     const isObj = typeof photo === 'object';
     const label = isObj ? photo.label : photo;
     const src = isObj ? photo.src : null;
     const isVideo = src && /\.(mp4|webm|mov)$/i.test(src);
-    const spanClass = isVideo
+    const spanClass = isVideo && i === firstVideoIdx
       ? ' span-big'
       : ((i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1) ? ' span-2' : '');
     let inner;
