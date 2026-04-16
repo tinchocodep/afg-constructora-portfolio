@@ -1933,7 +1933,7 @@ body::after {
 
 <!-- AFG REVESTIMIENTOS -->
 <section class="rev-section" aria-label="AFG Revestimientos">
-  <a class="rev-card reveal" href="https://www.afgrevestimiento.com" target="_blank" rel="noopener">
+  <a class="rev-card reveal" href="https://www.afgrevestimiento.com/" target="_blank" rel="noopener">
     <div class="rev-card-left">
       <div class="rev-tag">En AFG</div>
       <h2 class="rev-title">También hacemos<br><em>revestimientos.</em></h2>
@@ -2044,7 +2044,7 @@ const projects = [
       { src: "images/01-acevedo/web/04-cocina.jpg", label: "Cocina" },
       { src: "images/01-acevedo/web/05-living.jpg", label: "Living" },
       { src: "images/01-acevedo/web/06-balcon.jpg", label: "Balcón" },
-      { src: "images/01-acevedo/web/08-duplex.jpg", label: "Dúplex con pileta y terraza" },
+      { src: "images/01-acevedo/web/08-duplex.jpg?v=2", label: "Dúplex con pileta y terraza" },
     ],
   },
   {
@@ -2136,8 +2136,8 @@ const projects = [
     },
     amenities: ["Pileta", "Gimnasio", "Microcine", "Comercial"],
     photos: [
-      { src: "images/04-peron/web/01-fachada.jpg", label: "Fachada hotel" },
       { src: "images/04-peron/web/10-fachada-noche.jpg", label: "Fachada de noche" },
+      { src: "images/04-peron/web/01-fachada.jpg", label: "Fachada hotel" },
       { src: "images/04-peron/web/02-lobby.jpg", label: "Lobby" },
       { src: "images/04-peron/web/03-pileta.jpg", label: "Pileta climatizada" },
       { src: "images/04-peron/web/hero.mp4", label: "Recorrido" },
@@ -2165,9 +2165,9 @@ const projects = [
     amenities: ["Pileta", "Microcine", "Lectura", "SUM", "Cocheras"],
     photos: [
       { src: "images/05-tucuman/web/01-vista-altura.jpg", label: "Vista desde altura" },
-      { src: "images/05-tucuman/web/01-clip.mp4", label: "Recorrido obra" },
+      { src: "images/05-tucuman/web/03-vista-edificios.jpg", label: "Vista edificios vecinos" },
+      { src: "images/05-tucuman/web/04-pb-cartel.jpg", label: "Planta baja" },
       { src: "images/05-tucuman/web/02-escalera.jpg", label: "Escalera entre paredes" },
-      { src: "images/05-tucuman/web/02-clip.mp4", label: "Avance obra" },
       { src: "images/05-tucuman/web/03-clip.mp4", label: "Vista obra" },
     ],
   },
@@ -2194,6 +2194,7 @@ const projects = [
       { src: "images/06-suipacha/web/02-fachada-lateral.jpg", label: "Fachada lateral" },
       { src: "images/06-suipacha/web/03-interior-previo.jpg", label: "Interior pre-obra" },
       { src: "images/06-suipacha/web/04-terraza-previa.jpg", label: "Terraza actual" },
+      { src: "images/06-suipacha/web/05-demolicion.jpg", label: "Demolición en curso" },
     ],
   },
   {
@@ -2223,6 +2224,7 @@ const projects = [
       { src: "images/07-godoy-cruz/web/06-colado-accion.jpg", label: "Bomba hormigón" },
       { src: "images/07-godoy-cruz/web/07-pozo-excavacion.jpg", label: "Pozo" },
       { src: "images/07-godoy-cruz/web/08-operarios.jpg", label: "Operarios AFG" },
+      { src: "images/07-godoy-cruz/web/09-pozo-fundacion.jpg", label: "Pozo y fundación" },
     ],
   },
 ];
@@ -2249,9 +2251,19 @@ projects.forEach((p, idx) => {
     const label = isObj ? photo.label : photo;
     const src = isObj ? photo.src : null;
     const isVideo = src && /\.(mp4|webm|mov)$/i.test(src);
-    const spanClass = isVideo && i === firstVideoIdx
-      ? ' span-big'
-      : ((i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1) ? ' span-2' : '');
+    const n = p.photos.length;
+    let spanClass = '';
+    if (n === 5) {
+      if (i === 0 || i === 3 || i === 4) spanClass = ' span-2';
+    } else if (n === 7) {
+      if (i === 0) spanClass = ' span-2';
+    } else if (n === 8) {
+      // 2 filas de 4, todos singles
+    } else if (isVideo && i === firstVideoIdx) {
+      spanClass = ' span-big';
+    } else if ((i === 0 && idx % 2 === 0) || (i === 4 && idx % 2 === 1)) {
+      spanClass = ' span-2';
+    }
     let inner;
     if (isVideo) {
       inner = `<video src="${src}" class="gallery-img" autoplay muted loop playsinline></video><div class="gallery-video-badge">VIDEO</div>`;
